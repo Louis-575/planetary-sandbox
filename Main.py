@@ -35,17 +35,17 @@ try:
 
     arguments, values = getopt.getopt(args, options, long_options)
     for opt, val in arguments:
-        if opt in ("-h", "--Help"):
+        if opt in ("-h", "--help"):
             #Displays help page
             display_help()
             sys.exit(0)
-        elif opt in ("-s", "--Static"):
+        elif opt in ("-s", "--static"):
             static_display = True
-        elif opt in ("-a", "--Animated"):
+        elif opt in ("-a", "--animated"):
             animated_display = True
-        elif opt in ("-i", "--Increments"):
+        elif opt in ("-i", "--increments"):
             user_increments = float(val)
-        elif opt in ("-t", "--Endtime"):
+        elif opt in ("-t", "--endtime"):
             user_end_time = float(val)
 except getopt.error as err:
     print(str(err))
