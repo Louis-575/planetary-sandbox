@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 #Libraries
 import matplotlib;
 from matplotlib import animation
