@@ -1,11 +1,50 @@
 #Libraries
-import matplotlib; matplotlib.use("TkAgg")
+import matplotlib;
+from matplotlib import animation
+
+matplotlib.use("TkAgg")
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
+import sys
+import getopt
+
+#Help page
+def display_help():
+    print("Command usage")
+    print("-h Help")
+    print("-s Static graph display")
+    print("-a Animated graph display")
+
+#Parameters
+
+#Defualt values for the options
+static_display = False
+animated_display = False
+
+args = sys.argv[1:]
+options = "hsa"
+#Options for help, static graph display or animated display
+long_options = ["Help", "Static", "Animated"]
+try:
+
+    arguments, values = getopt.getopt(args, options, long_options)
+    for opt, val in arguments:
+        if opt in ("-h", "--Help"):
+            #Displays help page
+            display_help()
+            sys.exit(0)
+        elif opt in ("-s", "--Static"):
+            static_display = True
+        elif opt in ("-a", "--Animated"):
+            animated_display = True
+except getopt.error as err:
+    print(str(err))
+    sys.exit(2)
 
 #Physical Constants
 G = 1.0 #For our units and simulation G will be 1
+
 
 
 #The class for the planetary bodies. Every body that will be simulated will be one of these objects. It contains the position and velocity information.
@@ -190,8 +229,10 @@ def main():
     my_system.simulate()
 
     #Plotting/animating simulation
-    plot(my_system)
-    animate(my_system)
+    if (static_display == True):
+        plot(my_system)
+    if (animated_display == True):
+        animate(my_system)
 
 
 
