@@ -15,6 +15,9 @@ def display_help():
     print("-h Help")
     print("-s Static graph display")
     print("-a Animated graph display")
+    print("-i Number of increments per second (default: 10000")
+    print("-t Simulation time (default: 3)")
+
 
 #Parameters
 
