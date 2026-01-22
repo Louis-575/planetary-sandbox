@@ -21,9 +21,11 @@ def display_help():
 #Defualt values for the options
 static_display = False
 animated_display = False
+user_increments = 10000
+user_end_time = 3
 
 args = sys.argv[1:]
-options = "hsa"
+options = "hsat:i:"
 #Options for help, static graph display or animated display
 long_options = ["Help", "Static", "Animated"]
 try:
@@ -38,6 +40,10 @@ try:
             static_display = True
         elif opt in ("-a", "--Animated"):
             animated_display = True
+        elif opt in ("-i", "--Increments"):
+            user_increments = float(val)
+        elif opt in ("-t", "--Endtime"):
+            user_end_time = float(val)
 except getopt.error as err:
     print(str(err))
     sys.exit(2)
@@ -212,7 +218,7 @@ def animate(system):
             lines[b].set_data(positions[:frame, b, 0], positions[:frame, b, 1]) #Draw a line for the trail
         return points + lines
 
-    ani = FuncAnimation(fig, update, frames=positions.shape[0], interval=1, blit=True) #Animation function from matplot lib
+    ani = FuncAnimation(fig, update, frames=positions.shape[0], interval=(1* (10000/user_increments)) , blit=True) #Animation function from matplot lib
     plt.legend()
     plt.show()
 
@@ -225,7 +231,7 @@ def main():
     planet2 = Body("Planet", 1.0, 0.5, (-2.0, 0.0), (0.0, -50))
 
     #Creating system and running the simulation
-    my_system = SolarSystem(bodies_list=[sun, planet, moon, planet2], time_step=0.0001, end_time=2, method_type="leapfrog" )
+    my_system = SolarSystem(bodies_list=[sun, planet, moon, planet2], time_step=(1 / user_increments), end_time=(user_end_time / 100), method_type="leapfrog")
     my_system.simulate()
 
     #Plotting/animating simulation
